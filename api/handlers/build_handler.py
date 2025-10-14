@@ -13,17 +13,22 @@ def handle_build_request(payload) -> dict:
     3. Notify evaluation server
     """
 
-    # Step 1: Generate minimal app code using LLM
+    # Generate minimal app code using LLM
     print(f"Generating app code for task '{payload.task}'...")
     code_files = generate_app_code(payload.brief)
     print(f"App code generated: {list(code_files.keys())}")
 
-    # Step 2: Push code to GitHub
+    # Log README.md snippet if it exists
+    if "README.md" in code_files:
+        readme_snippet = "\n".join(code_files["README.md"].splitlines()[:5])
+        print(f"README.md preview:\n{readme_snippet}")
+
+    # Push code to GitHub
     print(f"Pushing code to GitHub...")
     repo_url, commit_sha, pages_url = push_to_github(payload.task, code_files)
     print(f"Repo URL: {repo_url}, Commit SHA: {commit_sha}, Pages URL: {pages_url}")
 
-    # Step 3: Notify evaluation server
+    # Notify evaluation server
     if payload.evaluation_url:
         print(f"Notifying evaluation server at {payload.evaluation_url}...")
         notify_evaluation(
@@ -39,7 +44,7 @@ def handle_build_request(payload) -> dict:
     else:
         print("No evaluation URL provided; skipping notification.")
 
-    # Step 4: Return response for FastAPI
+    # Return response for FastAPI
     response = {
         "status": "ok",
         "message": "Request accepted",

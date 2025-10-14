@@ -7,6 +7,7 @@ import os
 from typing import Optional, List, Dict, Any
 
 from api.handlers.build_handler import handle_build_request
+from api.handlers.revise_handler import handle_revise_request
 
 # Load environment variables (from .env)
 load_dotenv()
@@ -39,16 +40,21 @@ async def handle_request(payload: RequestPayload, request: Request):
     2. Routes round 1 requests to build_handler.
     """
 
-    # Step 1: Verify secret
+    # Verify secret
     if payload.secret != STUDENT_SECRET:
         raise HTTPException(status_code=403, detail="Invalid secret")
 
-    # Step 2: Log received task
+    # Log received task
     print(f"Received task '{payload.task}' (round {payload.round}) from {payload.email}")
 
-    # Step 3: Handle Build (round 1) — extend later for revise (round 2)
+    # Handle Build (round 1)
     if payload.round == 1:
         response = handle_build_request(payload)
+        
+    # Handle Revise (round 2)
+    elif payload.round == 2:
+        response = handle_revise_request(payload)
+
     else:
         response = {
             "status": "error",
