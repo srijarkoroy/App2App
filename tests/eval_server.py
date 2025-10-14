@@ -5,7 +5,7 @@ app = FastAPI(title="Local Evaluation Server")
 
 @app.post("/notify")
 async def receive_notification(payload: dict):
-    print("📬 Received notification from student API:")
+    print("Received notification from student API:")
     print(payload)
     return JSONResponse(status_code=200, content={"status": "ok", "message": "Notification received"})
 

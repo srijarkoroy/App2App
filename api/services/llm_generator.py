@@ -1,24 +1,25 @@
 # api/services/llm_generator.py
 
 import os
-import openai
 import json
+# import google.generativeai as genai
+from dotenv import load_dotenv
+from google import genai
 
-# Load OpenAI API key from .env
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-openai.api_key = OPENAI_API_KEY
+# Load .env
+load_dotenv()
+
+# Configure Gemini
+GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+# Initialize the Gemini client
+client = genai.Client(api_key=GOOGLE_API_KEY)
 
 
 def generate_app_code(brief: str) -> dict:
     """
-    Generate a minimal web app (HTML/CSS/JS) based on the brief.
-
-    Args:
-        brief: Task description or prompt for the app.
-
-    Returns:
-        code_files: dict of filename -> file content
+    Generate minimal web app files using Gemini.
     """
+
     prompt = f"""
 You are an assistant that generates a minimal, functional HTML/CSS/JS web app
 based on the following brief. Return the output as a JSON object with filenames
@@ -29,33 +30,38 @@ Brief:
 
 Requirements:
 - index.html must exist
-- If JS or CSS is needed, include main.js and style.css
+- Include main.js and style.css if needed
+- Include a README.md with: summary, setup, usage, and license
+- Output as a JSON object where keys are filenames and values are contents
 - Keep code minimal and functional
-- Do not include secrets in the code
 """
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "You generate minimal, functional web apps."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.5,
-            max_tokens=2000
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt
         )
 
-        content = response.choices[0].message.content.strip()
+        content = response.text.strip()
+
+        # Attempt to extract JSON safely
+        try:
+            start = content.index('{')
+            end = content.rindex('}') + 1
+            content = content[start:end]
+        except ValueError:
+            pass
+
         code_files = json.loads(content)
         return code_files
 
     except Exception as e:
-        print(f"Error generating app code: {e}")
+        print(f"Error generating app code with Gemini: {e}")
         # Fallback minimal HTML
         return {
-            "index.html": "<!DOCTYPE html><html><head><title>Fallback App</title></head><body><h1>Fallback App</h1></body></html>"
+            "index.html": "<!DOCTYPE html><html><head><title>Fallback App</title></head><body><h1>Fallback App</h1></body></html>",
+            "README.md": "# Fallback App\nThis is a fallback README generated due to LLM error."
         }
-
 
 
 def generate_test_app_code(brief: str):

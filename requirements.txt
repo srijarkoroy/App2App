@@ -5,3 +5,4 @@ requests
 openai
 pygithub
 requests
+google-genai

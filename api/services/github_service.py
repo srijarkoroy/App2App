@@ -14,9 +14,6 @@ load_dotenv()
 GITHUB_USER = os.getenv("GITHUB_USER")
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
-print("------------------Token:", os.getenv("GITHUB_TOKEN"))
-
-
 def push_to_github(task_name: str, code_files: Dict[str, str]) -> Tuple[str, str, str]:
     """
     Push code to GitHub, create repo, commit files, enable GitHub Pages.
@@ -38,7 +35,7 @@ def push_to_github(task_name: str, code_files: Dict[str, str]) -> Tuple[str, str
         user = g.get_user()
         try:
             repo = user.get_repo(task_name)
-            print(f"⚠️ Repo '{task_name}' already exists. Using existing repo.")
+            print(f"Repo '{task_name}' already exists. Using existing repo.")
         except GithubException as e:
             if e.status == 404:
                 # Repo doesn't exist → create new
