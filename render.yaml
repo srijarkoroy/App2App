@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: llm-code-deployment
+    env: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: STUDENT_SECRET
+        fromDatabase: true  # Optional: if you want Render to manage secrets
+      - key: GITHUB_USER
+        fromDatabase: true
+      - key: GITHUB_TOKEN
+        fromDatabase: true
+      - key: OPENAI_API_KEY
+        fromDatabase: true
+      - key: GOOGLE_API_KEY
+        fromDatabase: true

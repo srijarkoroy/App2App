@@ -6,3 +6,6 @@ openai
 pygithub
 requests
 google-genai
+gitpython
+playwright
+pydantic

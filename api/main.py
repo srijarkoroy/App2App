@@ -9,13 +9,13 @@ from typing import Optional, List, Dict, Any
 from api.handlers.build_handler import handle_build_request
 from api.handlers.revise_handler import handle_revise_request
 
-# Load environment variables (from .env)
+# Load environment variables (for local development)
 load_dotenv()
 
 # Create FastAPI app
 app = FastAPI(title="LLM Code Deployment API")
 
-# Get secret from environment
+# Secret from environment
 STUDENT_SECRET = os.getenv("STUDENT_SECRET")
 
 
@@ -73,4 +73,7 @@ async def health():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True)
+
+    # Use PORT environment variable if available (Render sets this automatically)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("api.main:app", host="0.0.0.0", port=port, reload=True)
