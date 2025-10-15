@@ -10,7 +10,7 @@ from google import genai
 load_dotenv()
 
 # Configure Gemini
-GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 # Initialize the Gemini client
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
