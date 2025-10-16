@@ -5,6 +5,6 @@ echo "🚀 Installing python dependencies..."
 pip install -r requirements.txt
 
 echo "🎭 Installing Playwright browsers..."
-playwright install --with-deps
+playwright install chromium
 
 echo "✅ Installation complete!"
