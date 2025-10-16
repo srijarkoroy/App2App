@@ -202,11 +202,20 @@ async def health():
 async def get_all_results():
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    cur.execute("SELECT id, email, repo_url, created_at FROM results ORDER BY id DESC")
+    # Select all columns
+    cur.execute("SELECT id, email, repo_url, pages_url, brief, results_json, created_at FROM results ORDER BY id DESC")
     rows = cur.fetchall()
     conn.close()
 
     return {"results": [
-        {"id": r[0], "email": r[1], "repo_url": r[2], "created_at": r[3]}
+        {
+            "id": r[0],
+            "email": r[1],
+            "repo_url": r[2],
+            "pages_url": r[3],
+            "brief": r[4],
+            "results_json": json.loads(r[5]),  # parse the JSON string back to dict
+            "created_at": r[6]
+        }
         for r in rows
     ]}
