@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Installing dependencies..."
+echo "🚀 Installing python dependencies..."
 pip install -r requirements.txt
 
 echo "🎭 Installing Playwright browsers..."
