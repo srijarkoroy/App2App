@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "a562b030-43f1-4827-982f-4cfa72227362",
+		"name": "App2App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49336769",
+		"_collection_link": "https://srijarko-3473432.postman.co/workspace/Srijarko-Roy's-Workspace~e373109c-de8e-4b68-88a8-4f263e128b2e/collection/49336769-a562b030-43f1-4827-982f-4cfa72227362?action=share&source=collection_link&creator=49336769"
+	},
+	"item": [
+		{
+			"name": "Main",
+			"item": [
+				{
+					"name": "Build - Round1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Key",
+								"value": " Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Value",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"srijarko@gmail.com\",\n    \"secret\": \"cutu\",\n    \"task\": \"captcha-solver-001\",\n    \"round\": 1,\n    \"nonce\": \"1234\",\n    \"brief\": \"Create a captcha solver\",\n    \"checks\": [\"Repo has MIT license\"],\n    \"evaluation_url\": \"https://app2appeval.onrender.com/notify\",\n    \"attachments\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app2app.onrender.com/",
+							"protocol": "https",
+							"host": [
+								"app2app",
+								"onrender",
+								"com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Revise - Round2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Key",
+								"value": " Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Value",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"srijarko@gmail.com\",\n    \"secret\": \"cutu\",\n    \"task\": \"captcha-solver-001\",\n    \"round\": 2,\n    \"nonce\": \"1234\",\n    \"brief\": \"Create a captcha solver with support for SVG\",\n    \"checks\": [\"Repo has MIT license\"],\n    \"evaluation_url\": \"https://app2appeval.onrender.com/notify\",\n    \"attachments\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://app2app.onrender.com/",
+							"protocol": "https",
+							"host": [
+								"app2app",
+								"onrender",
+								"com"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Key",
+								"value": " Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Value",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://app2app.onrender.com/health",
+							"protocol": "https",
+							"host": [
+								"app2app",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Eval",
+			"item": [
+				{
+					"name": "Evaluate - RetriveFromDB",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Key",
+								"value": " Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Value",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://app2appeval.onrender.com/results",
+							"protocol": "https",
+							"host": [
+								"app2appeval",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"results"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Key",
+								"value": " Content-Type",
+								"type": "text"
+							},
+							{
+								"key": "Value",
+								"value": " application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://app2appeval.onrender.com/health",
+							"protocol": "https",
+							"host": [
+								"app2appeval",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
