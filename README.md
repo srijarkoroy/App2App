@@ -72,6 +72,48 @@ How to use it:
 
 Quick note: start the API with the uvicorn command above before running collection requests against your local instance.
 
+## Execute from Terminal (curl)
+
+You can send a build/revise request directly from the terminal using curl against the hosted endpoint. Change the `brief` field in the JSON to describe your task.
+
+```bash
+curl -X POST https://app2app.onrender.com/ \
+ -H "Content-Type: application/json" \
+ -d '{
+	"email": "srijarko@gmail.com",
+	"secret": "cutu",
+	"task": "captcha-solver-001",
+	"round": 1,
+	"nonce": "1234",
+	"brief": "Create a captcha solver",
+	"checks": ["Repo has MIT license"],
+	"evaluation_url": "https://app2appeval.onrender.com/notify",
+	"attachments": []
+}'
+```
+
+Notes:
+
+- The example above posts to the hosted URL (no local server required) — update the URL to `http://localhost:8000/` if you prefer to hit a local instance.
+- Edit `brief` (and other fields) as needed before sending.
+- To submit a revision request set `"round": 2` in the payload (the collection's `Revise - Round2` request already uses round 2).
+
+```bash
+curl -X POST https://app2app.onrender.com/ \
+ -H "Content-Type: application/json" \
+ -d '{
+	"email": "srijarko@gmail.com",
+	"secret": "cutu",
+	"task": "captcha-solver-001",
+	"round": 2,
+	"nonce": "1234",
+	"brief": "Add support for SVG Images",
+	"checks": ["Repo has MIT license"],
+	"evaluation_url": "https://app2appeval.onrender.com/notify",
+	"attachments": []
+}'
+```
+
 ## Running tests
 
 This project uses pytest. From the repository root (and with your virtualenv activated):
